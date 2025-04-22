@@ -41,21 +41,21 @@ var sqlServer = builder
     .WithDataVolume("Data")
     .WithLifetime(ContainerLifetime.Persistent);
 
-var db1 = sqlServer.AddDatabase("db1");
+//var db1 = sqlServer.AddDatabase("db1");
 var migration1 = builder
     .AddProject<Projects.ConsoleApp1>("db1-migrations")
     .WithArgs("2000")
-    .WithReference(db1)
-    .WaitFor(db1)
-    .WithParentRelationship(db1);
+    .WithReference(sqlServer)
+    .WaitFor(sqlServer)
+    .WithParentRelationship(sqlServer);
 
-var db2 = sqlServer.AddDatabase("db2");
+//var db2 = sqlServer.AddDatabase("db2");
 var migration2 = builder
     .AddProject<Projects.ConsoleApp2>("db2-migrations")
     .WithArgs("2000")
-    .WithReference(db2)
-    .WaitFor(db2)
-    .WithParentRelationship(db2)
+    .WithReference(sqlServer)
+    .WaitFor(sqlServer)
+    .WithParentRelationship(sqlServer)
     .WithExplicitStart();
 
 
